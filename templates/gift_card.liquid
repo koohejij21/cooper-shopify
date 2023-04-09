@@ -1,0 +1,35 @@
+{% layout none %}
+{% style %}
+    #qr-code img {
+        margin: 0 auto;
+    }
+{% endstyle %}
+
+{{ 'vendor/qrcode.js' | shopify_asset_url | script_tag }}
+
+<div style="text-align: center; padding: 0 1rem;">
+    <div id="qr-code"></div>
+    <script>
+      new QRCode(document.getElementById('qr-code'), {
+        text: '{{ gift_card.qr_identifier }}',
+        width: 120,
+        height: 120
+      });
+    </script>
+
+    <p>Balance: {{ gift_card.balance | money }} of {{ gift_card.initial_value | money }}</p>
+    <p>Code: {{ gift_card.code }}</p>
+
+    {% if gift_card.pass_url %}
+      <a href="{{ gift_card.pass_url }}" >
+        <img id="apple-wallet-badge"
+          src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+          width="120"
+          height="40"
+          alt="Add To Apple Wallet">
+        </a>
+    {% endif %}
+</div>
+{% comment %}
+https://youtu.be/zCDo-l5DJSo?t=3004
+{% endcomment %}

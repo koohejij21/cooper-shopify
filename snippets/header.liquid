@@ -1,0 +1,37 @@
+<header class="site-header">
+    
+    <div class="site-logo-wrapper">
+        {% comment %}<h1>{{ shop.name }}</h1>{% endcomment %}
+        
+        {%- if settings.logo != blank -%}
+            <a class="site-logo" href="/">
+              {{ settings.logo | image_url: width: 120 | image_tag:
+                widths: '50, 120',
+                height: settings.logo.height,
+                width: settings.logo.width,
+                alt: settings.logo.alt
+              }}
+            </a>
+        {%- else -%}
+              <h1 class="site-title"><a href="/">{{ shop.name }}</a></h1>
+            {%- endif -%}
+        </a>
+
+    </div>
+    
+    <nav class="site-navigation">
+        {% for link in linklists.main-menu.links -%}
+            <a href="{{ link.url }}" {% if link.current %}aria-current="page" class="active" {% endif %}>{{ link.title }}</a>
+        {%- endfor %}
+        <a href="/cart" {% if template == 'cart' %}aria-current="page" class="active"{% endif %}>Cart</a>
+    </nav>
+
+    {% if settings.show_search %}
+        <form class="site-header-search-form" action="/search">
+            <input type="search" name="q" placeholder="Search" value="{{ search.terms | escape }}"/>
+            <button type="submit">Search</button>
+        </form>
+    {% endif %}
+
+    <button class="cart-drawer-button js-open-cart">Cart ({{ cart.item_count }})</button>
+</header>

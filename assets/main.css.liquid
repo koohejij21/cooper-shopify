@@ -1,0 +1,322 @@
+:root {
+    --padding-side-sm: 1.5rem;
+    --padding-side-md: 2.5rem;
+
+    --black: #191919;
+    --white: #ffffff;
+    --red: #c41e3a;
+}
+/* Sets init fade in */
+html.js main {
+    opacity: 1;
+    transition: opacity 0.69s cubic-bezier(0.49, 0.07, 0.38, 0.93);
+    transition-delay: 0.26s;
+}
+
+/* **************************
+ * Base 
+ * ************************** */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    position: relative;
+
+    font-family: 'Helvetica', sans-serif;
+
+    /* Sets .site-main to fill available space at minimum. Can be removed. */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+
+    color: var(--black);
+
+    /* background-color: {{ settings.bg }};
+    color: {{ settings.text_color }}; */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* hides lazyload alt text */
+img {
+  color: transparent;
+}
+
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  img[loading="lazy"] {
+    clip-path: inset(0.6px)
+  }
+}
+/* **************************
+ * Typography 
+ * ************************** */
+a {
+    color: var(--black);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* **************************
+ * Header 
+ * ************************** */
+.site-header {
+    background: #fff;
+    padding: 0.5rem var(--padding-side-sm);
+    border-bottom: 1px solid var(--black);
+}
+
+@media screen and (min-width: 700px) {
+    .site-header{
+        padding: 0.75rem var(--padding-side-md);
+    }
+}
+
+.site-title {
+    margin: 0;
+}
+
+.site-title a {
+    color: var(--black);
+}
+
+/* Nav ********************* */
+.site-navigation {
+    padding: 0.5rem 0;
+    margin: 0;
+}
+
+.site-navigation a {
+    display: inline-block;
+    padding-right: 0.75rem;
+}
+
+.site-navigation a.active {
+    font-weight: 700;
+}
+
+/* Header Search *********** */
+.site-header-search-form {
+    /* Form class */
+}
+
+/* **************************
+ * Cart Drawer
+ * ************************** */
+.cart-drawer-button {
+    position: absolute;
+    top: 1rem;
+    right: var(--padding-side-sm);
+}
+
+.cart-drawer-close-btn {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.5rem;
+}
+
+@media screen and (min-width: 700px) {
+    .cart-drawer-button {
+        right: var(--padding-side-md);
+    }
+}
+
+.cart-drawer {
+    position: fixed;
+    top: 0.55rem;
+    right: 0.95rem;
+
+    visibility: hidden;
+    opacity: 0;
+
+    width: 100%;
+    max-width: 320px;
+
+    
+
+    background: var(--white);
+
+    border: 1px solid var(--black);
+}
+
+@media screen and (min-width: 700px) {
+    .cart-drawer {
+        top: 0.55rem;
+        right: 1.95rem;
+    }
+}
+
+.cart-drawer__header,
+.cart-drawer__body {
+    padding: 0.5rem;
+}
+
+.cart-drawer__header {
+    border-bottom: 1px solid var(--black);
+}
+
+.cart-drawer__header h4 {
+    margin: 0;
+}
+
+.cart-drawer-item {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.cart-drawer-item-img {
+    width: 75px;
+}
+
+.cart-drawer-item-img img {
+    display: block;
+}
+
+.cart-drawer-item-info {
+    padding: 0 0.5rem;
+    flex: 1;
+}
+
+.cart-drawer-item-title {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.cart-drawer-item-price {
+    margin: 0;
+    font-size: 0.725rem;
+}
+
+.cart-drawer-item-remove {
+    width: 25px;
+    aspect-ratio: 1;
+
+    color: var(--black);
+    text-align: center;
+}
+
+.cart-drawer-item-remove:hover {
+    text-decoration: none;
+}
+
+/* **************************
+ * Main Content 
+ * ************************** */
+.site-main {
+    padding: 1rem var(--padding-side-sm);
+}
+
+@media screen and (min-width: 700px) {
+    .site-main {
+        padding: 1.5rem var(--padding-side-md);
+    }
+}
+
+/* **************************
+ * Product: Card (on Collection pages)
+ * ************************** */
+.product-grid {
+
+}
+
+@media screen and (min-width: 700px) {
+    .product-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 1rem;
+    }
+}
+
+.product-card img {
+    display: block;
+    max-width: 100%;
+}
+
+.product-card__title {
+    margin: 1rem 0 0.25rem 0;
+}
+
+.product-card__price {
+    margin: 0 0 1rem 0;
+    font-size: 0.875rem;
+}
+
+.sort-bar a {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.sort-bar a.active {
+    font-weight: 700;
+}
+
+/* **************************
+ * Single Product Template
+ * ************************** */
+.single-product {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 700px) {
+    .single-product {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 2rem;
+    }
+}
+
+.sp-wrapper {
+    max-width: 420px;
+}
+
+.sp-gallery {
+    /* max-width: 200px; */
+}
+
+.sp-gallery-item img {
+    display: block;
+}
+
+.sp-title {
+    margin-bottom: 0.5rem;
+}
+
+.sp-price {
+    margin: 0;
+}
+
+.sp-description {
+   
+}
+
+/* **************************
+ * Page: Contact
+ * ************************** */
+.contact-form-item {
+    margin-bottom: 1rem;
+    max-width: 280px; /* Can remove */
+}
+
+.contact-form-item label {
+    font-size: 0.875rem;
+}
+
+.contact-form-item input,
+.contact-form-item textarea {
+    display: block;
+    width: 100%;
+}

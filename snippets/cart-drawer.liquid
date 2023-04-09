@@ -1,0 +1,39 @@
+<div class="cart-drawer">
+    <div class="cart-drawer__header">
+        <h4>Cart ({{ cart.item_count }})</h4>
+        <button class="cart-drawer-close-btn js-close-cart">Close</button>
+    </div>
+    <div class="cart-drawer__body">
+        {% if cart.empty? %}
+            <h5 style="text-align: center;">Your Cart is empty</h5>
+        {% else %}
+            {% for item in cart.items %}
+                <div class="cart-drawer-item">    
+                    <div class="cart-drawer-item-img">
+                        <a href="{{ item.url }}">
+                            <img src="{{ item.image | image_url: width: 75}}" 
+                                 alt="{{ item.image.alt | escape }}" 
+                                 loading="lazy" 
+                                 width="{{ item.image.width }}" 
+                                 height="{{ item.image.height }}" />
+                        </a>
+                    </div>
+
+                    <div class="cart-drawer-item-info">
+                        <h4 class="cart-drawer-item-title"><a href="{{ item.url }}">{{ item.title }} ({{ item.quantity }})</a></h4>
+                        <p class="cart-drawer-item-price">{{ item.final_line_price | money }}</p>
+                    </div>
+                    
+                    <a class="cart-drawer-item-remove js-remove-cart-drawer-item" href="{{ item.url_to_remove }}">×</a>
+
+                </div>
+            {% endfor %}
+
+            <hr/>
+
+            <p>Total: {{ cart.total_price | money }}</p>
+            
+            <button type="submit" name="checkout">Checkout</button>
+        {% endif %}
+    </div>
+</div>

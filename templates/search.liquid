@@ -1,0 +1,44 @@
+{% if search.performed %}
+    {% paginate search.results by 4 %}
+        <h1>Searched:         
+            <span>{{ search.terms | escape }}</span>
+            <span>({{ search.results_count }})</span>
+        </h1>
+        
+        {% if search.results_count != 0 %}
+            {% for item in search.results %}
+                <div>
+                    <h3>{{ item.title | link_to: item.url }}</h3>
+                    <p>{{ item.content | highlight: search.terms }}</p>
+                </div>
+                
+                {% if item.object_type == 'article' %}
+                    {% comment %} Article Result {% endcomment %}
+                {% elsif item.object_type == 'page' %}
+                    {% comment %} Page Result {% endcomment %}
+                {% else %}
+                    {% comment %} Product Result {% endcomment %}
+                {% endif %}
+
+            {% endfor %}
+        {% else %}
+            <p>No results. Try another search.</p>
+        {% endif %}
+
+        {{ paginate | default_pagination }}
+    {% endpaginate %}
+{% else %}
+    <h1>Try searching for something</h1>
+
+    <form action="/search">
+        <input type="search" name="q" placeholder="Search" value="{{ search.terms | escape }}"/>
+        <button type="submit">Search</button>
+    </form>
+{% endif %}
+
+{% comment %}
+{% elsif result.object_type == "article" %}
+                    <h3>{{ item.title | link_to: item.url }}</h3>
+                    <p>{{ item.content | highlight: search.terms }}</p>
+                    {% endcomment %}
+

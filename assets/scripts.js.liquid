@@ -1,0 +1,175 @@
+console.log('Hello World');
+
+// Init functions
+initCartDrawer();
+
+barba.init({
+    preventRunning: true,
+    transitions: [{
+        name: 'default-transition',
+        once(data) {
+            console.log('once', data.next.namespace);
+            gsap.to(data.next.container, 0.65, {
+                opacity: 1,
+                ease: "power2.inOut"
+            });
+        },
+        leave(data) {
+            // Remove active nav class
+            document.querySelectorAll('.site-navigation a').forEach(function(element) {
+                element.classList.remove('active');
+            });
+            // Animate out old view
+            gsap.to(data.current.container, 0.45, {
+                opacity: 0,
+                ease: "power2.inOut"
+            });
+        },
+        enter(data) {
+            // console.log('enter', data.next.url.path);
+
+            // Add active nav class
+            document.querySelectorAll('.site-navigation a').forEach(function(element) {
+              if (element.getAttribute('href') === data.next.url.path) {
+                element.classList.add('active');
+              }
+            });
+
+            // Fade in new content
+            let page = data.next.namespace;
+            
+            gsap.set(data.next.container, {
+                opacity: 0,
+            });
+
+            gsap.to(data.next.container, 0.45, {
+                opacity: 1,
+                ease: "power2.inOut"
+            });
+        },
+    }],
+    views: [{
+        namespace: 'pagecontact',
+        beforeEnter() {
+          initContactPage();
+        }
+    },
+    {
+        namespace: 'collection',
+        beforeEnter() {
+          initCollectionPage();
+        }
+    },
+    {
+        namespace: 'product',
+        beforeEnter() {
+          initSingleProduct();
+        }
+    },
+    {
+        namespace: 'product',
+        beforeEnter() {
+          initSingleProduct();
+        }
+    }]
+});
+
+// Allows WP Links to operate normally
+// document.querySelectorAll("#wpadminbar a").forEach(item=>item.setAttribute('data-barba-prevent','self'));
+
+function initCartDrawer() {
+    $('.js-open-cart').on('click', function(e) {
+        e.preventDefault();
+        gsap.to('.cart-drawer', 0.35, {autoAlpha: 1, opacity: 1});
+    });
+
+    $('.js-close-cart').on('click', function(e) {
+        e.preventDefault();
+        gsap.to('.cart-drawer', 0.35, {autoAlpha: 0, opacity: 0});
+    });
+
+    $('.js-remove-cart-drawer-item').on('click', function(e) {
+        $(this).parent().remove();
+    });
+}
+
+function initContactPage() {
+    console.log('on contact page');
+
+    document.querySelectorAll('.sub');
+
+
+    $('.sub')
+}
+
+function initCollectionPage() {
+    console.log('on collection page');
+
+    Shopify.queryParams = {};
+
+    // Preserve existing query parameters
+    if (location.search.length) {
+        var params = location.search.substr(1).split('&');
+
+        for (var i = 0; i < params.length; i++) {
+          var keyValue = params[i].split('=');
+
+          if (keyValue.length) {
+            Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+          }
+        }
+    }
+
+    // Update sort_by query parameter on select change
+    document.querySelector('#sort-by').addEventListener('change', function(e) {
+        var value = e.target.value;
+
+        Shopify.queryParams.sort_by = value;
+        location.search = new URLSearchParams(Shopify.queryParams).toString();
+    });
+}
+
+
+function initSingleProduct() {
+    // controls for quantity sliders
+    bindQuantityCount();
+}
+
+function initCartPage() {
+    // controls for quantity sliders
+    bindQuantityCount();
+}
+
+
+function bindQuantityCount() {
+    const addButtons = document.querySelectorAll('.add');
+    addButtons.forEach(function (addButton) {
+      addButton.addEventListener('click', function () {
+        const th = this.closest('.sp-option').querySelector('.sp-quantity');
+        th.value = parseInt(th.value) + 1;
+      });
+    });
+
+    const subButtons = document.querySelectorAll('.sub');
+    subButtons.forEach(function (subButton) {
+      subButton.addEventListener('click', function () {
+        const th = this.closest('.sp-option').querySelector('.sp-quantity');
+        if (parseInt(th.value) > 1) th.value = parseInt(th.value) - 1;
+      });
+    });
+
+    $('.sub').click(function () {
+      var th = $(this).closest('.sp-option').find('.sp-quantity');     
+            if (th.val() > 1) th.val(+th.val() - 1);
+    });
+}
+
+
+/* 
+var url=window.location.href,
+    separator = (url.indexOf("?")===-1)?"?":"&",
+    newParam=separator + "ts=true";
+    newUrl=url.replace(newParam,"");
+    newUrl+=newParam;
+    window.location.href =newUrl;
+    */

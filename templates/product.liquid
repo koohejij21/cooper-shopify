@@ -1,0 +1,45 @@
+<section class="single-product">
+    <div class="single-product__left">
+        <div class="sp-gallery">
+            {% for image in product.images %}
+                <div class="sp-gallery-item">
+                    <img src="{{ image | image_url: master }}"/>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="single-product__right">
+        <div class="sp-wrapper">
+            <h1 class="sp-title">{{ product.title }}</h1>
+            <p class="sp-price">{{ product.price | money }}</p>
+            <p class="sp-description">{{ product.description }}</p>
+
+            {% form 'product', product %}
+                <select name="id">
+                    {% for variant in product.variants %}
+                        <option value="{{ variant.id }}">{{ variant.title }}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="sp-option">
+                  <button type="button" id="sub" class="sub">-</button>
+                  <input id="quantity" name="quantity" value="1" class="sp-quantity" min="1" max="100" />
+                  <button type="button" id="add" class="add">+</button>
+                </div>
+
+                <button type="submit">Add to Cart</button>
+                
+                <!--
+                {% if product.variant.available %}
+                    
+                {% else %}
+                    <button type="submit" disabled>Sold Out</button>
+                {% endif %}
+                -->
+
+                <!-- <button type="submit">Add to Cart</button> -->
+            {% endform %}
+        </div>
+    </div>
+</section>
+            

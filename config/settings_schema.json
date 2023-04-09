@@ -1,0 +1,57 @@
+[
+    {
+        "name": "Identity",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo"
+          }
+        ]
+    },
+    {
+        "name": "Site Banner",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_site_banner",
+            "label": "Show Sitewide Banner",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "favicon",
+            "label": "Favicon image",
+            "info": "Will be scaled down to 32 x 32px"
+          }
+        ]
+    },
+    {
+        "name": "Colors",
+        "settings": [
+            {
+                "type": "color",
+                "id": "bg",
+                "label": "Background Color",
+                "default": "#ffffff"
+            },
+            {
+                "type": "color",
+                "id": "text_color",
+                "label": "Text Color",
+                "default": "#000000"
+            }
+        ]
+    },
+    {
+        "name": "Settings",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "show_search",
+                "label": "Show Search Form",
+                "default": true
+            }
+        ]
+    }
+]

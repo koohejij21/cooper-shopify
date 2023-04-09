@@ -1,0 +1,61 @@
+<!--
+  ___  __    __  ____  ____  ____ 
+ / __)/  \  /  \(  _ \(  __)(  _ \
+( (__(  O )(  O )) __/ ) _)  )   /
+ \___)\__/  \__/(__)  (____)(__\_)
+shopify starter theme by connor hubeny - connorhubeny.com -->
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+    
+    {{ content_for_header }}
+    {{ 'slick.css' | asset_url | stylesheet_tag }}
+    {{ 'main.css' | asset_url | stylesheet_tag }}
+
+    <style> 
+        main { opacity: 0; }
+    </style>
+</head>
+<body>
+
+    {% render 'header' %}
+
+    {% render 'cart-drawer' %}
+
+    <main class="site-main" data-barba="wrapper">
+        <div data-barba="container" data-barba-namespace="{{ template.name }}{{ template.suffix }}">
+            {{ content_for_layout }}
+        </div>
+    </main>
+
+    {{ 'modernizr-custom.js' | asset_url | script_tag }}
+    {{ 'jquery.min.js' | asset_url | script_tag }}
+    {{ 'barba.min.js' | asset_url | script_tag }}
+    {{ 'slick.min.js' | asset_url | script_tag }}
+    {{ 'gsap.min.js' | asset_url | script_tag }}
+    {{ 'scripts.js' | asset_url | script_tag }}
+</body>
+</html>
